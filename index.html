@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A simple interactive expense tracker built with HTML, CSS and JavaScript." />
+  <title>SpendWise | Expense Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="SpendWise home"><span class="brand-mark">S</span> SpendWise</a>
+    <div class="topbar-right"><span class="status-dot"></span><span>Personal finance</span></div>
+  </header>
+
+  <main class="container">
+    <section class="welcome">
+      <div>
+        <p class="eyebrow">YOUR MONEY, MADE CLEAR</p>
+        <h1>Expense tracker</h1>
+        <p class="muted">Track your spending, stay organized, and make smarter decisions.</p>
+      </div>
+      <button class="button button-primary" id="addTopButton" type="button">＋ Add expense</button>
+    </section>
+
+    <section class="summary-grid" aria-label="Expense summary">
+      <article class="summary-card total-card">
+        <div class="summary-icon">₹</div>
+        <p>Total expenses</p>
+        <h2 id="totalAmount">₹0.00</h2>
+        <span class="card-note">Based on filtered expenses</span>
+      </article>
+      <article class="summary-card">
+        <div class="summary-icon icon-blue">▤</div>
+        <p>Transactions</p>
+        <h2 id="transactionCount">0</h2>
+        <span class="card-note">Expense records</span>
+      </article>
+      <article class="summary-card">
+        <div class="summary-icon icon-orange">⌁</div>
+        <p>Average expense</p>
+        <h2 id="averageAmount">₹0.00</h2>
+        <span class="card-note">Per transaction</span>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <section class="panel form-panel" id="formPanel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">RECORD A PURCHASE</p><h2 id="formTitle">Add an expense</h2></div>
+          <span class="heading-icon">＋</span>
+        </div>
+        <form id="expenseForm">
+          <input type="hidden" id="expenseId" />
+          <label for="title">Expense name</label>
+          <input id="title" name="title" type="text" placeholder="e.g. Grocery shopping" maxlength="70" required />
+          <div class="form-row">
+            <div>
+              <label for="amount">Amount (₹)</label>
+              <input id="amount" name="amount" type="number" placeholder="0.00" min="0.01" step="0.01" required />
+            </div>
+            <div>
+              <label for="category">Category</label>
+              <select id="category" name="category" required>
+                <option value="Food">Food</option>
+                <option value="Transport">Transport</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Bills">Bills</option>
+                <option value="Health">Health</option>
+                <option value="Education">Education</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <label for="date">Date</label>
+          <input id="date" name="date" type="date" required />
+          <div class="form-actions">
+            <button class="button button-primary" id="saveButton" type="submit">Save expense</button>
+            <button class="button button-ghost hidden" id="cancelEditButton" type="button">Cancel</button>
+          </div>
+          <p class="form-message" id="formMessage" role="status"></p>
+        </form>
+      </section>
+
+      <section class="panel list-panel">
+        <div class="panel-heading list-heading">
+          <div><p class="eyebrow">YOUR ACTIVITY</p><h2>Recent expenses</h2></div>
+          <button class="button button-ghost button-small" id="clearFiltersButton" type="button">Reset filters</button>
+        </div>
+        <div class="filters">
+          <div class="search-wrap"><span>⌕</span><input id="searchInput" type="search" placeholder="Search expenses..." aria-label="Search expenses" /></div>
+          <select id="categoryFilter" aria-label="Filter by category">
+            <option value="All">All categories</option>
+            <option value="Food">Food</option><option value="Transport">Transport</option>
+            <option value="Shopping">Shopping</option><option value="Bills">Bills</option>
+            <option value="Health">Health</option><option value="Education">Education</option>
+            <option value="Entertainment">Entertainment</option><option value="Other">Other</option>
+          </select>
+          <div class="date-filters">
+            <input id="startDate" type="date" aria-label="Start date" title="Start date" />
+            <span>to</span>
+            <input id="endDate" type="date" aria-label="End date" title="End date" />
+          </div>
+        </div>
+        <div class="expense-list" id="expenseList" aria-live="polite"></div>
+        <div class="list-footer"><span id="resultCount">0 expenses</span><button id="exportButton" class="text-button" type="button">Export CSV ↗</button></div>
+      </section>
+    </section>
+
+    <section class="panel insights-panel">
+      <div class="panel-heading"><div><p class="eyebrow">SPENDING BREAKDOWN</p><h2>By category</h2></div></div>
+      <div id="categoryBreakdown" class="breakdown"></div>
+    </section>
+    <footer>Built with HTML, CSS, JavaScript and LocalStorage <span>•</span> Your data stays in this browser.</footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
